@@ -1,0 +1,38 @@
+output_dir: ~/scratch/experiments/
+
+dataset:
+  class: FB15k237LogicalQuery
+  path: ~/kg-datasets/
+
+task:
+  class: LogicalQuery
+  model:
+    class: GNN-QE
+    model:
+      class: NBFNet
+      input_dim: 32
+      hidden_dims: [32, 32, 32, 32]
+      message_func: distmult
+      aggregate_func: pna
+      short_cut: yes
+      layer_norm: yes
+      dependent: yes
+    logic: product
+    dropout_ratio: 0.25
+  criterion: bce
+  sample_weight: no
+  adversarial_temperature: 0.2
+
+optimizer:
+  class: Adam
+  lr: 5.0e-3
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 48
+
+train:
+  num_epoch: 10
+  batch_per_epoch: 1000
+
+metric: mrr
