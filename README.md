@@ -62,11 +62,11 @@ to fit a smaller GPU memory. All the configuration files can be found in
 To run GNN-QE with multiple GPUs or multiple machines, use the following commands
 
 ```bash
-python -m torch.distributed.launch --nproc_per_node=4 script/run.py -c config/inductive/wn18rr.yaml --gpus [0,1,2,3]
+python -m torch.distributed.launch --nproc_per_node=4 script/run.py -c config/fb15k237.yaml --gpus [0,1,2,3]
 ```
 
 ```bash
-python -m torch.distributed.launch --nnodes=4 --nproc_per_node=4 script/run.py -c config/inductive/wn18rr.yaml --gpus[0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3]
+python -m torch.distributed.launch --nnodes=4 --nproc_per_node=4 script/run.py -c config/fb15k237.yaml --gpus [0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3]
 ```
 
 Once you have models trained on FB15k-237, you can visualize the intermediate
