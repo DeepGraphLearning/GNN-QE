@@ -114,7 +114,7 @@ class LogicalQuery(tasks.Task, core.Configurable):
         num_easy = easy_answer.sum(dim=-1)
         num_hard = hard_answer.sum(dim=-1)
         num_answer = num_easy + num_hard
-        answer2query = functional._size_to_index(num_answer)
+        answer2query = torch.repeat_interleave(num_answer)
         order = pred.argsort(dim=-1, descending=True)
         range = torch.arange(self.num_entity, device=self.device)
         ranking = scatter_add(range.expand_as(order), order, dim=-1)

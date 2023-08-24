@@ -1,4 +1,5 @@
-from collections import Sequence
+from typing import Sequence
+
 
 import torch
 from torch import nn
