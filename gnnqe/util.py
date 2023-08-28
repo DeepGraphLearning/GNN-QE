@@ -120,6 +120,28 @@ def build_solver(cfg, dataset):
 
     return solver
 
-def one_hot():
-    #TODO: implement this, when it gets a -1, return an all one row/column(?)
-    pass 
+def one_hot(index, size):
+    """
+    Expand indexes into a combination of one-hot vectors and vectors of ones for -1 positions.
+
+    Parameters:
+        index (Tensor): index
+        size (int): size of the one-hot dimension
+    """
+    shape = list(index.shape) + [size]
+    result = torch.zeros(shape, device=index.device)
+    
+    # Check if index contains -1
+    if -1 in index:
+        result[index == -1] = 1  # Set the positions of -1 to 1
+    
+    # Apply one-hot encoding for non-negative indices
+    non_negative_indices = index[index >= 0]
+    if non_negative_indices.numel():
+        assert non_negative_indices.min() >= 0
+        assert non_negative_indices.max() < size
+        result_non_negative = torch.zeros(non_negative_indices.shape[0], size, device=index.device)
+        result_non_negative.scatter_(-1, non_negative_indices.unsqueeze(-1), 1)
+        result[index >= 0] = result_non_negative
+        
+    return result
