@@ -119,3 +119,7 @@ def build_solver(cfg, dataset):
         solver.load(cfg.checkpoint)
 
     return solver
+
+def one_hot():
+    #TODO: implement this, when it gets a -1, return an all one row/column(?)
+    pass 
