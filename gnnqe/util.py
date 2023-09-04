@@ -122,7 +122,7 @@ def build_solver(cfg, dataset):
 
 def one_hot(index, size):
     """
-    Expand indexes into a combination of one-hot vectors and vectors of ones for -1 positions.
+    Expand indexes into a combination of one-hot vectors and vectors of ones for -5 positions.
 
     Parameters:
         index (Tensor): index
@@ -131,9 +131,9 @@ def one_hot(index, size):
     shape = list(index.shape) + [size]
     result = torch.zeros(shape, device=index.device)
     
-    # Check if index contains -1
-    if -1 in index:
-        result[index == -1] = 1  # Set the positions of -1 to 1
+    # Check if index contains -5
+    if -5 in index:
+        result[index == -5] = 1  # Set the positions of -1 to 1
     
     # Apply one-hot encoding for non-negative indices
     non_negative_indices = index[index >= 0]
